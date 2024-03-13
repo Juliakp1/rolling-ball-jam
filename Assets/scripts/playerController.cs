@@ -64,13 +64,16 @@ public class character : MonoBehaviour
 
         //time limit counter here
         if (dead == false) {
+            timeLimit -= Time.deltaTime;
             if (timeLimit <= 0) {
                 loseTextObject.SetActive(true);
                 dead = true;
                 timeLimit = 0f;
                 loseNoise.Play();
-            } else {
-                timeLimit -= Time.deltaTime;
+            } else if (timeLimit <= 1) {
+                timerText.color = Color.red;
+            } else if (timeLimit <= 2.5) {
+                timerText.color = Color.magenta;
             }
             timerText.text = "Timer: " + timeLimit.ToString("F2");
         }
@@ -95,6 +98,7 @@ public class character : MonoBehaviour
             count++;
             SetCountText();
             timeLimit = 5.1f;
+            timerText.color = Color.black;
         }
         if (other.gameObject.CompareTag("deadly") && won == false){
             loseTextObject.SetActive(true);
